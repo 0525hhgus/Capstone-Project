@@ -3,6 +3,8 @@ Capstone-Project (2020.09~) ChatBot Service
 
 ## 1. Paper
 - NEURAL MACHINE TRANSLATION BY JOINTLY LEARNING TO ALIGN AND TRANSLATE
+- [Link](https://arxiv.org/abs/1409.0473)
+- [github Code](https://github.com/chrisbangun/pytorch-seq2seq_with_attention)
 
 ## 2. Deap Learning Algorithm
 - attention 또는 attention으로부터 확장된 알고리즘(self attention, Transformer, BERT)
