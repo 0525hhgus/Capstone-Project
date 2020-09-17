@@ -5,7 +5,7 @@ Capstone-Project (2020.09~) ChatBot Service
 - NEURAL MACHINE TRANSLATION BY JOINTLY LEARNING TO ALIGN AND TRANSLATE
 
 ## 2. Deap Learning Algorithm
-– attention 또는 attention으로부터 확장된 알고리즘(self attention, Transformer, BERT)
+- attention 또는 attention으로부터 확장된 알고리즘(self attention, Transformer, BERT)
 
 ## 3. Subject : (딥러닝 알고리즘) 기반 챗봇 서비스
 ### 3-1. 언어 선택 
