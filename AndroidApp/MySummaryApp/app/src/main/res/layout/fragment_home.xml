@@ -4,73 +4,88 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:drawable/editbox_dropdown_light_frame"
     tools:context=".ui.home.HomeFragment">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/mainbackground"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/nav_host_fragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <ImageView
             android:id="@+id/logo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="120dp"
             android:layout_margin="20dp"
+            android:layout_weight="0.2"
+            android:adjustViewBounds="false"
+            android:cropToPadding="false"
             android:scaleX="1"
             android:scaleY="1"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:src="@drawable/logo"
+            android:visibility="visible" />
 
-        <Button
-            android:id="@+id/newsButton"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="100dp"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="뉴스 요약" />
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-        <Button
-            android:id="@+id/opinionButton"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="100dp"
+            <Button
+                android:id="@+id/newsButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:background="#118C80"
+                android:text="뉴스 요약"
+                android:textSize="20dp"
+                app:backgroundTint="#B3118C80"></Button>
+
+            <Button
+                android:id="@+id/opinionButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:background="#1BA67E"
+                android:text="기고문 요약"
+                android:textSize="20dp"
+                app:backgroundTint="#B31BA67E" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="기고문 요약" />
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-        <Button
-            android:id="@+id/magazineButton"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="100dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="잡지 요약" />
+            <Button
+                android:id="@+id/magazineButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:background="#26BF78"
+                android:text="잡지 요약"
+                android:textSize="20dp"
+                app:backgroundTint="#B326BF78" />
 
-        <Button
-            android:id="@+id/judgmentButton"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="100dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="판결문 요약" />
-
-        <Button
-            android:id="@+id/paperButton"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="100dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="논문 요약" />
-
+            <Button
+                android:id="@+id/paperButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:background="#30D979"
+                android:text="논문 요약"
+                android:textSize="20dp"
+                app:backgroundTint="#B330D979" />
+        </LinearLayout>
 
     </LinearLayout>
 
