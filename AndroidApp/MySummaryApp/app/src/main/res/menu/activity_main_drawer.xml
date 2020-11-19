@@ -5,29 +5,27 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/summarySideButton"
-            android:icon="@drawable/ic_menu_camera"
             android:title="요약하기"/>
         <item
             android:id="@+id/nav_news"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/newspaper"
             android:title="뉴스 요약" />
 
         <item
-
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="기고문 요약" />
+            android:id="@+id/nav_paper"
+            android:icon="@drawable/paper"
+            android:title="논문 요약" />
         <item
-
-            android:icon="@drawable/ic_menu_gallery"
+            android:id="@+id/nav_magz"
+            android:icon="@drawable/magazine"
             android:title="잡지 요약" />
         <item
-
-            android:icon="@drawable/ic_menu_gallery"
+            android:id="@+id/nav_judm"
+            android:icon="@drawable/judgement"
             android:title="판결문 요약" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:id="@+id/nav_repo"
+            android:icon="@drawable/repo"
             android:title="저장소" />
     </group>
 </menu>

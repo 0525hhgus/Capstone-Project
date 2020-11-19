@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:drawable/editbox_dropdown_light_frame"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.home.HomeFragment"
+    android:id="@+id/fragment_home">
 
 
     <LinearLayout
@@ -47,15 +48,15 @@
                 app:backgroundTint="#B3118C80"></Button>
 
             <Button
-                android:id="@+id/opinionButton"
+                android:id="@+id/paperButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
                 android:background="#1BA67E"
-                android:text="기고문 요약"
+                android:text="논문 요약"
                 android:textSize="20dp"
-                app:backgroundTint="#B31BA67E" />
+                app:backgroundTint="#B330D979" />
 
         </LinearLayout>
 
@@ -65,7 +66,7 @@
             android:layout_weight="1">
 
             <Button
-                android:id="@+id/magazineButton"
+                android:id="@+id/magzButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="20dp"
@@ -76,15 +77,16 @@
                 app:backgroundTint="#B326BF78" />
 
             <Button
-                android:id="@+id/paperButton"
+                android:id="@+id/judgmButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
                 android:background="#30D979"
-                android:text="논문 요약"
+                android:text="판결문 요약"
                 android:textSize="20dp"
-                app:backgroundTint="#B330D979" />
+                app:backgroundTint="#B31BA67E" />
+
         </LinearLayout>
 
     </LinearLayout>

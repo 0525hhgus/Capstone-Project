@@ -13,19 +13,56 @@
         <action
             android:id="@+id/action_nav_home_to_nav_news"
             app:destination="@id/nav_news" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_magz"
+            app:destination="@id/nav_magz" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_judm"
+            app:destination="@id/nav_judm" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_paper"
+            app:destination="@id/nav_paper" />
+        <action
+            android:id="@+id/action_nav_home_to_newsButton"
+            app:destination="@id/nav_news" />
 
     </fragment>
 
-
     <fragment
         android:id="@+id/nav_news"
-        android:name="org.techtown.mysummaryapp.ui.gallery.GalleryFragment"
-        android:label="@string/menu_news"
+        android:name="org.techtown.mysummaryapp.ui.news.NewsFragment"
+        android:label="뉴스 요약"
         tools:layout="@layout/fragment_news" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="org.techtown.mysummaryapp.ui.slideshow.SlideshowFragment"
+        android:id="@+id/nav_paper"
+        android:name="org.techtown.mysummaryapp.ui.paper.PaperFragment"
+        android:label="논문 요약"
+        tools:layout="@layout/fragment_paper" />
+
+    <fragment
+        android:id="@+id/nav_magz"
+        android:name="org.techtown.mysummaryapp.ui.magz.MagzFragment"
+        android:label="잡지 요약"
+        tools:layout="@layout/fragment_magz" />
+
+    <fragment
+        android:id="@+id/nav_judm"
+        android:name="org.techtown.mysummaryapp.ui.judm.JudmFragment"
+        android:label="판결문 요약"
+        tools:layout="@layout/fragment_judm" />
+
+    <fragment
+        android:id="@+id/nav_repo"
+        android:name="org.techtown.mysummaryapp.ui.repo.RepoFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+
+
+
+
+
+
+
 </navigation>
