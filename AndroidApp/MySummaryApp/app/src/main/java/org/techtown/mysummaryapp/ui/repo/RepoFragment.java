@@ -21,7 +21,7 @@ public class RepoFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         repoViewModel =
                 new ViewModelProvider(this).get(RepoViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
+        View root = inflater.inflate(R.layout.fragment_repo, container, false);
         // final TextView textView = root.findViewById(R.id.text_slideshow);
         repoViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

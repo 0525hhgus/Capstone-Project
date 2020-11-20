@@ -20,31 +20,26 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import org.techtown.mysummaryapp.ui.home.HomeFragment;
+import org.techtown.mysummaryapp.ui.news.NewsFragment;
+
+import java.util.Stack;
+
 public class MainActivity extends AppCompatActivity {
 
-    HomeFragment homeFragment;
-    NewsFragment newsFragment;
 
     private AppBarConfiguration mAppBarConfiguration;
+    public static Stack<Fragment> fragmentStack;
+    public static FragmentManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        homeFragment = new HomeFragment();
-        newsFragment = new NewsFragment();
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -57,18 +52,27 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-
+        fragmentStack = new Stack<>();
+        fragmentStack.push(HomeFragment.newInstance());
+        manager = getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.fragment_home, HomeFragment.newInstance()).commit();
     }
 
-    public void onFragmentChange(int index){
-        if(index == 0){
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container,homeFragment).commit();
+    @Override
+    public void onBackPressed() {
+        if (!fragmentStack.isEmpty()) {
+            Fragment nextFragment = fragmentStack.pop();
+            manager.beginTransaction().replace(R.id.fragment_home, nextFragment).commit();
+        } else {
+            super.onBackPressed();
         }
-        else if (index ==1 ){
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container,newsFragment).commit();
-        }
+    }
+
+
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_home, fragment).commit();      // Fragment로 사용할 MainActivity내의 layout공간을 선택합니다.
     }
 
 

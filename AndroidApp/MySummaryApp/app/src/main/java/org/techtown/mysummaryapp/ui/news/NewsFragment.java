@@ -17,6 +17,11 @@ public class NewsFragment extends Fragment {
 
     private NewsViewModel NewsViewModel;
 
+    public static NewsFragment newInstance() {
+        return new NewsFragment();
+    }
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         NewsViewModel =

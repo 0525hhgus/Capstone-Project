@@ -10,7 +10,7 @@ public class RepoViewModel extends ViewModel {
 
     public RepoViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is slideshow fragment");
+        mText.setValue("This is Repo fragment");
     }
 
     public LiveData<String> getText() {

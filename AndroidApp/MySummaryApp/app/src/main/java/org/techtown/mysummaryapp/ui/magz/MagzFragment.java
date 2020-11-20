@@ -12,10 +12,15 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import org.techtown.mysummaryapp.R;
+import org.techtown.mysummaryapp.ui.news.NewsFragment;
 
 public class MagzFragment extends Fragment {
 
     private MagzViewModel MagzViewModel;
+
+    public static MagzFragment newInstance() {
+        return new MagzFragment();
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

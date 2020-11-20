@@ -56,7 +56,7 @@
         android:id="@+id/nav_repo"
         android:name="org.techtown.mysummaryapp.ui.repo.RepoFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_repo" />
 
 
 

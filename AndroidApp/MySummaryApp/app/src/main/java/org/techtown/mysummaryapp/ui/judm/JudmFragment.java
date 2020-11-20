@@ -13,10 +13,15 @@ import androidx.lifecycle.ViewModelProvider;
 
 import org.techtown.mysummaryapp.R;
 import org.techtown.mysummaryapp.ui.magz.MagzViewModel;
+import org.techtown.mysummaryapp.ui.news.NewsFragment;
 
 public class JudmFragment extends Fragment {
 
     private JudmViewModel JudmViewModel;
+
+    public static JudmFragment newInstance() {
+        return new JudmFragment();
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
