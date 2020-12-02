@@ -6,14 +6,13 @@ import androidx.lifecycle.ViewModel;
 
 public class LocationViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    private final MutableLiveData<String> liveData = new MutableLiveData<>();
 
-    public LocationViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+    public MutableLiveData<String> getLiveData() {
+        return liveData;
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public void setText(MutableLiveData<String> mText) {
+        //liveData.setValue(mText);
     }
 }

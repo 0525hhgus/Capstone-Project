@@ -1,24 +1,19 @@
-package org.techtown.gwangjubus.ui.home;
+package org.techtown.gwangjubus.ui.busstop;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,9 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,10 +33,7 @@ import org.techtown.gwangjubus.BusArriveImf;
 import org.techtown.gwangjubus.MainActivity;
 import org.techtown.gwangjubus.OnBusArriveClickListener;
 import org.techtown.gwangjubus.R;
-import org.techtown.gwangjubus.action.PopupFragment;
-import org.techtown.gwangjubus.ui.ZxingActivity;
-import org.techtown.gwangjubus.ui.location.LocationFragment;
-import org.techtown.gwangjubus.ui.location.LocationViewModel;
+import org.techtown.gwangjubus.ui.home.HomeViewModel;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -51,7 +41,7 @@ import java.util.ArrayList;
 
 import fr.arnaudguyon.xmltojsonlib.XmlToJson;
 
-public class HomeFragment extends Fragment {
+public class StationFragment extends Fragment {
 
     Context context;
     public static final String TAG = MainActivity.class.getSimpleName();
@@ -63,16 +53,8 @@ public class HomeFragment extends Fragment {
     ArrayList<BusArriveImf> list = null;
     BusArriveImf bus = null;
     BusArriveAdapter adapter;
+    String search;
 
-
-    LocationFragment locationFragment = new LocationFragment();
-
-    public static HomeFragment newInstance() {
-        return new HomeFragment();
-    }
-    private DecoratedBarcodeView barcodeScannerView;
-
-    TextView text;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,72 +65,20 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-        IntentIntegrator integrator = IntentIntegrator.forSupportFragment(HomeFragment.this);
-
-        integrator.setOrientationLocked(false);
-        integrator.setPrompt("Scan QR code");
-        integrator.setBeepEnabled(false);
-
-        integrator.setCaptureActivity(ZxingActivity.class);
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
-        integrator.initiateScan();
-
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-
-        text = root.findViewById(R.id.text);
+        View root = inflater.inflate(R.layout.fragment_station, container, false);
 
 
-        recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) root.findViewById(R.id.stationrecycler_view);
         recyclerView.setHasFixedSize(true);
+
+        search = ((MainActivity)getActivity()).busstopId;
+        BusArriveTask(search);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-
-        // qrFragment = new QRFragment();
-        // ((MainActivity) getActivity()).replaceFragment(qrFragment);
-
-
-
-
         return root;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-
-
-        if (result != null) {
-            if (result.getContents() == null) {
-                System.out.println("Cancelled");
-                Toast.makeText(getActivity(), "You cancelled the scanning!", Toast.LENGTH_LONG).show();
-            } else {
-                System.out.println("Worked: " + result.getContents());
-                Toast.makeText(getActivity(), "scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
-                text.setText(result.getContents());
-
-                // ApiExplorer api = new ApiExplorer();
-
-                BusArriveTask("2873");
-
-                /*
-                try {
-                    busstopData = api.BusstopExlporer(result.getContents());
-                    System.out.println(busstopData);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }*/
-
-
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
     }
 
     private void BusArriveTask(String search){
