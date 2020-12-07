@@ -254,6 +254,7 @@ public class HomeFragment extends Fragment {
             public void onItemClick(BusArriveAdapter.MyViewHolder holder, View view, int position) {
                 BusArriveImf item = adapter.getItem(position);
                 ((MainActivity)getActivity()).lineId = item.getLineId();
+                ((MainActivity)getActivity()).busId = item.getBusId();
                 ((MainActivity)getActivity()).busstopName = item.getBusstopName();
                 System.out.println("아이템 선택 " + item.getBusName());
                 show();

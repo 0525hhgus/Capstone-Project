@@ -284,7 +284,7 @@ public class HomeFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getActivity().getApplicationContext(),"예를 선택했습니다.",Toast.LENGTH_LONG).show();
                         // 승차벨 이벤트!!!!!
-                        // ((MainActivity)getActivity()).replaceFragment(locationFragment);
+                        ((MainActivity)getActivity()).replaceFragment(locationFragment);
                     }
                 });
         builder.show();
