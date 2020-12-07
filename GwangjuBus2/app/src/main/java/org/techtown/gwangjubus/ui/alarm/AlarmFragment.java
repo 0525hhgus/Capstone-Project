@@ -1,16 +1,22 @@
 package org.techtown.gwangjubus.ui.alarm;
 
 
-import android.support.v7.app.AppCompatActivity;
+// import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.techtown.gwangjubus.R;
 import org.xmlpull.v1.XmlPullParser;
@@ -59,6 +65,20 @@ public class AlarmFragment extends Fragment {
     private String station2;
     private View fragment_alarm;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // context = this.getActivity().getBaseContext();
+    }
+
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+
+        View root = inflater.inflate(R.layout.fragment_alarm, container, false);
+
+
+        return root;
+    }
 
     //검색하기 onclick버튼
     public void search(View view) {
@@ -119,6 +139,9 @@ public class AlarmFragment extends Fragment {
                 });
             }
         }).start();
+    }
+
+    public void runOnUiThread(Runnable 도착_정보_없음) {
     }
 
     //정류소명을 입력하면 정류장 ID를 돌려줌
@@ -283,7 +306,7 @@ public class AlarmFragment extends Fragment {
 
         // 사용자가 하나 이상의 값을 입력하지 않은 경우
         if (busNum.equals("") || stationArsno.equals("")) {
-            Toast.makeText(this, "값을 입력해주세요!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "값을 입력해주세요!", Toast.LENGTH_SHORT).show();
             return true;
         }
 
@@ -294,13 +317,13 @@ public class AlarmFragment extends Fragment {
         //버스 번호 유효성 검사
         Matcher matcher_busNum = pattern_symbol.matcher(busNum); // 입력값이 유효하다면 true return
         if(matcher_busNum.find() == false) {
-            Toast.makeText(this, "버스 ID를 다시 입력해주세요!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "버스 ID를 다시 입력해주세요!", Toast.LENGTH_SHORT).show();
             return true;
         }
         //정류장 번호 유효성 검사
         Matcher matcher_stationArsno = pattern_symbol.matcher(stationArsno); // 입력값이 유효하다면 true return
         if(matcher_stationArsno.find() == false) {
-            Toast.makeText(this, "정류장 번호를 다시 입력해주세요!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "정류장 번호를 다시 입력해주세요!", Toast.LENGTH_SHORT).show();
             return true;
         }
 
