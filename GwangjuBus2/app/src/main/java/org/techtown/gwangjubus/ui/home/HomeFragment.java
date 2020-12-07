@@ -45,7 +45,12 @@ import org.techtown.gwangjubus.ui.ZxingActivity;
 import org.techtown.gwangjubus.ui.location.LocationFragment;
 import org.techtown.gwangjubus.ui.location.LocationViewModel;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.Socket;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
@@ -63,6 +68,10 @@ public class HomeFragment extends Fragment {
     ArrayList<BusArriveImf> list = null;
     BusArriveImf bus = null;
     BusArriveAdapter adapter;
+
+    private Socket socket;
+    BufferedReader socket_in;
+    PrintWriter socket_out;
 
 
     LocationFragment locationFragment = new LocationFragment();
@@ -253,6 +262,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(BusArriveAdapter.MyViewHolder holder, View view, int position) {
                 BusArriveImf item = adapter.getItem(position);
+                ((MainActivity)getActivity()).busId = item.getBusId();
                 ((MainActivity)getActivity()).lineId = item.getLineId();
                 ((MainActivity)getActivity()).busstopName = item.getBusstopName();
                 System.out.println("아이템 선택 " + item.getBusName());
@@ -284,11 +294,52 @@ public class HomeFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getActivity().getApplicationContext(),"예를 선택했습니다.",Toast.LENGTH_LONG).show();
                         // 승차벨 이벤트!!!!!
+                        String busid = ((MainActivity)getActivity()).busId;
+
+
+                        Thread worker = new Thread(){
+                            public void run(){
+                                try {
+                                    socket = new Socket("168.131.151.207", 7777);
+                                    socket_out = new PrintWriter(socket.getOutputStream(), true);
+                                    socket_in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                                    if (busid != null){
+                                        socket_out.println(busid);
+                                    }
+
+                                } catch (IOException e){
+                                    e.printStackTrace();
+                                }
+                                try {
+                                    while(true) {
+                                        ((MainActivity)getActivity()).busId = socket_in.readLine();
+                                    }
+                                } catch (Exception e){
+
+                                }
+
+
+                            }
+                        };
+
+                        worker.start();
+
                         ((MainActivity)getActivity()).replaceFragment(locationFragment);
                     }
                 });
         builder.show();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        try {
+            if(socket != null) {
+                socket.close();
+            }
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+    }
 
 }
