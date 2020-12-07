@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="?attr/actionBarSize">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="30dp"
+                    android:textSize="20dp"
+                    android:gravity="center"
+                    android:text="환경 설정">
+
+            </TextView>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <Button
+                    android:id="@+id/setting_button1"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/pencil"
+                    android:text="개인정보 관리 및 수정"
+                    app:backgroundTint="#F49C9C"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="225dp" />
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:background="#FFFFFF"
+                    android:src="@drawable/pencil"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/setting_button1"
+                    app:layout_constraintStart_toStartOf="@+id/setting_button1"
+                    app:layout_constraintTop_toTopOf="@+id/setting_button1" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <Button
+                    android:id="@+id/setting_button2"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="광주통합민원 바로가기"
+                    app:backgroundTint="#F49C9C"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="300dp" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:src="@drawable/phone2"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/setting_button2"
+                    app:layout_constraintStart_toStartOf="@+id/setting_button2"
+                    app:layout_constraintTop_toTopOf="@+id/setting_button2" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <Button
+                    android:id="@+id/setting_button3"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="버스불편사항 신고하기"
+                    app:backgroundTint="#F49C9C"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="375dp" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:src="@drawable/phonealarm"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/setting_button3"
+                    app:layout_constraintStart_toStartOf="@+id/setting_button3"
+                    app:layout_constraintTop_toTopOf="@+id/setting_button3" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <Button
+                    android:id="@+id/setting_button4"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="알림설정"
+                    app:backgroundTint="#F49C9C"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="450dp" />
+
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="70dp"
+                    android:layout_height="60dp"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginLeft="30dp"
+                    android:src="@drawable/settings"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/setting_button4"
+                    app:layout_constraintStart_toStartOf="@+id/setting_button4"
+                    app:layout_constraintTop_toTopOf="@+id/setting_button4" />
+
+            </RelativeLayout>
+        </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
