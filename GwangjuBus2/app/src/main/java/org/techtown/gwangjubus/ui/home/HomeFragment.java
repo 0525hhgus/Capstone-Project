@@ -300,7 +300,7 @@ public class HomeFragment extends Fragment {
                         Thread worker = new Thread(){
                             public void run(){
                                 try {
-                                    socket = new Socket("168.131.151.207", 7777);
+                                    socket = new Socket("168.131.151.207", 4567);
                                     socket_out = new PrintWriter(socket.getOutputStream(), true);
                                     socket_in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                                     if (busid != null){
