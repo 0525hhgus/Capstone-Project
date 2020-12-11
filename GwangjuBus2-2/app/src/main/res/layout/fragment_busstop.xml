@@ -23,6 +23,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -32,18 +33,20 @@
             </TextView>
 
             <EditText
+                android:layout_weight="6"
                 android:id="@+id/searchbusstoptext"
-                android:layout_width="280dp"
+                android:layout_width="0dp"
                 android:inputType="textPersonName"
                 android:layout_height="wrap_content">
 
             </EditText>
 
             <Button
+                android:layout_weight="2"
                 android:id="@+id/searchbusstopbutton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
+                android:layout_width="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_height="match_parent"
                 android:textColor="@color/white"
                 app:backgroundTint="@color/Indigo"
                 app:backgroundTintMode="src_over"
