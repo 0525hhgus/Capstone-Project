@@ -6,9 +6,8 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-
-// 허차요청 서버
-public class ServerTest {
+// 승차 요청 서버
+public class ServerTest2 {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
@@ -19,7 +18,7 @@ public class ServerTest {
 		BufferedReader in = null;
 		
 		
-		serverSocket = new ServerSocket(7891);
+		serverSocket = new ServerSocket(1234);
 		
 		try {
 			clientSocket = serverSocket.accept();
@@ -35,7 +34,7 @@ public class ServerTest {
 				System.out.println("클라이언트로부터 받은 승차 요청 버스 ID : " + inputLine);
 				out.println(inputLine);
 				
-				if(inputLine.equals("quit"))
+				if(inputLine.equals("null"))
 					break;
 				
 			}
