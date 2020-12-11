@@ -27,7 +27,6 @@ public class SettingFragment extends Fragment {
     private long contentView;
     private Object setContentView;
 
-    alarm_setting_Fragment alarm_setting_Fragment = new alarm_setting_Fragment();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -64,7 +63,8 @@ public class SettingFragment extends Fragment {
         setting_button4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
 
-                replaceFragment(alarm_setting_Fragment);
+                Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(("http://bus.gwangju.go.kr/guide/bustime/busTime")));
+                startActivity(myIntent);
             }
             /*
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
