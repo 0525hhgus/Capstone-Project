@@ -62,6 +62,11 @@ public class SettingFragment extends Fragment {
         );
 
         setting_button4.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+
+                replaceFragment(alarm_setting_Fragment);
+            }
+            /*
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 
 
@@ -70,12 +75,21 @@ public class SettingFragment extends Fragment {
                 transaction.replace(R.id.fragment_setting, alarm_setting_Fragment);
                 transaction.commit();
             }
+            */
         });
 
 
 
         return rootView;
     }
+
+    public void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_setting, fragment);
+        fragmentTransaction.commit();
+    }
+
 
 
 }

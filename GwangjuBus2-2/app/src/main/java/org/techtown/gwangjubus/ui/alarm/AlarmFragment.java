@@ -34,7 +34,10 @@ import org.techtown.gwangjubus.BusArriveAdapter;
 import org.techtown.gwangjubus.BusArriveImf;
 import org.techtown.gwangjubus.MainActivity;
 import org.techtown.gwangjubus.OnBusArriveClickListener;
+import org.techtown.gwangjubus.OnStationClickListener;
 import org.techtown.gwangjubus.R;
+import org.techtown.gwangjubus.StationAdapter;
+import org.techtown.gwangjubus.StationList;
 import org.techtown.gwangjubus.ui.home.HomeViewModel;
 
 import java.io.UnsupportedEncodingException;
@@ -52,10 +55,12 @@ public class AlarmFragment extends Fragment  {
     private HomeViewModel homeViewModel;
     IntentResult result;
     RecyclerView hacha_search_recyclerview;
-    ArrayList<BusArriveImf> list = null;
     BusArriveImf bus = null;
     BusArriveAdapter adapter;
     String search_id; // 찾고자 하는 버스 id
+
+    ArrayList<StationList> list = null;
+    String station = null;
 
     String hacha_busid_text; //add
     String hacha_station_text; //add
@@ -86,22 +91,19 @@ public class AlarmFragment extends Fragment  {
         // add
         Button hacha_reservation_cancel_button = rootView.findViewById(R.id.hacha_reservation_cancel_button);
         Button hacha_reservation_button = rootView.findViewById(R.id.hacha_reservation_button);
-        EditText hacha_bus_id = rootView.findViewById((R.id.hacha_bus_id));
         EditText hacha_station = rootView.findViewById((R.id.hacha_station));
-        hacha_busid_text = hacha_bus_id.getText().toString();  //버스 아이디 텍스트 가져오기
         hacha_station_text = hacha_station.getText().toString(); //내릴 정류장 텍스트 가져오기
 
         // end
 
-        search_id = hacha_busid_text;
-        BusArriveTask(search_id);
+        search_id = ((MainActivity)getActivity()).busId;
 
         hacha_reservation_cancel_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
 
                 show2(); //하차 취소 여부 묻는 창
 
-              //  StationSearchTask();
+                //  StationSearchTask();
                 //취소 되면 예약창 사라지게 하기
             }
         });
@@ -116,12 +118,13 @@ public class AlarmFragment extends Fragment  {
         return rootView;
     }
 
-    private void BusArriveTask(String search){
+    private void StationSearchTask(){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
 
 
+        /*
         String StationId = null; // 정류소 ID
 
         try {
@@ -129,8 +132,10 @@ public class AlarmFragment extends Fragment  {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        */
+
         // 버스 도착정보 목록 조회
-        String url = "http://api.gwangju.go.kr/xml/arriveInfo?serviceKey="+key+"&BUSSTOP_ID="+StationId+"";
+        String url = "\thttp://api.gwangju.go.kr/xml/stationInfo?serviceKey="+key+"";
         Log.d(TAG, "URL:"+url);
 
         StringRequest request= new StringRequest(Request.Method.GET, url,
@@ -153,7 +158,7 @@ public class AlarmFragment extends Fragment  {
     private void XMLtoJSONData(String xml){
 
 
-        list = new ArrayList<BusArriveImf>();
+        list = new ArrayList<StationList>();
 
         // https://androidfreetutorial.wordpress.com/2016/11/28/how-to-convert-xml-to-json-for-android/
         XmlToJson xmlToJson = new XmlToJson.Builder(xml).build();
@@ -163,7 +168,7 @@ public class AlarmFragment extends Fragment  {
 
         // JSON 에서 배열은 [] 대괄호 사용, Objext 는 {} 중괄호 사용
         try {
-            JSONObject response = jsonObject.getJSONObject("ns2:ARRIVE_INFO");
+            JSONObject response = jsonObject.getJSONObject("ns2:STATION_INFO");
             JSONObject result = response.getJSONObject("RESULT");
 
 
@@ -173,26 +178,22 @@ public class AlarmFragment extends Fragment  {
 
             if(resultCode.equals("SUCCESS")){
 
-                JSONObject arrive_list = response.getJSONObject("ARRIVE_LIST");
-                JSONArray array = arrive_list.getJSONArray("ARRIVE");
+                JSONObject arrive_list = response.getJSONObject("STATION_LIST");
+                JSONArray array = arrive_list.getJSONArray("STATION");
 
                 for(int i=0; i < array.length(); i++){
                     JSONObject obj = array.getJSONObject(i);
                     // optString which returns the value mapped by name if it exists
-                    String busId =obj.optString("BUS_ID"); // 첫번째 차량 번호
-                    String busName = obj.optString("LINE_NAME"); // 버스 이름
-                    String lineId = obj.optString("LINE_ID");
-                    String busArriveTime = obj.optString("REMAIN_MIN"); // 도착 예정 시간
-                    String busstopName =obj.optString("BUSSTOP_NAME"); // 첫번째 차량 위치 정보
-                    Log.d(TAG, "jString busId :"+busId);
-                    Log.d(TAG, "jString busName :"+busName);
-                    Log.d(TAG, "jString Lineid :"+lineId);
-                    Log.d(TAG, "jString busArriveTime :"+busArriveTime);
-                    Log.d(TAG, "jString busstopName :"+busstopName);
+                    String staionId =obj.optString("BUSSTOP_ID"); // 첫번째 차량 번호
+                    String stationName = obj.optString("BUSSTOP_NAME"); // 버스 이름
+                    Log.d(TAG, "jString busId :"+staionId);
+                    Log.d(TAG, "jString busName :"+stationName);
+                    station = new StationList(staionId, stationName);
 
-                    bus = new BusArriveImf(busId, busName, lineId, busArriveTime, busstopName);
+                    if(search.equals(stationName)){
+                        list.add(station);
+                    }
 
-                    list.add(bus);
 
                 }
 
@@ -211,20 +212,8 @@ public class AlarmFragment extends Fragment  {
             e.printStackTrace();
         }
 
-        adapter = new BusArriveAdapter(getActivity().getApplicationContext(), list);
-        hacha_search_recyclerview.setAdapter(adapter);
-        hacha_search_recyclerview.setClickable(true);
-        adapter.setOnItemClicklistener(new OnBusArriveClickListener() {
-            @Override
-            public void onItemClick(BusArriveAdapter.MyViewHolder holder, View view, int position) {
-                BusArriveImf item = adapter.getItem(position);
-                ((MainActivity)getActivity()).lineId = item.getLineId();
-                ((MainActivity)getActivity()).busstopName = item.getBusstopName();
-                System.out.println("아이템 선택 " + item.getBusName());
-                show();
-            }
-        });
     }
+
 
     public void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -269,7 +258,6 @@ public class AlarmFragment extends Fragment  {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getActivity().getApplicationContext(),"하차가 취소 되었습니다..",Toast.LENGTH_LONG).show();
-
                     }
                 });
         builder.show();
