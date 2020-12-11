@@ -265,6 +265,7 @@ public class HomeFragment extends Fragment {
                 ((MainActivity)getActivity()).busId = item.getBusId();
                 ((MainActivity)getActivity()).lineId = item.getLineId();
                 ((MainActivity)getActivity()).busstopName = item.getBusstopName();
+                ((MainActivity)getActivity()).lineName = item.getBusName();
                 System.out.println("아이템 선택 " + item.getBusName());
                 show();
             }
@@ -312,7 +313,10 @@ public class HomeFragment extends Fragment {
                                 }
                                 try {
                                     while(true) {
-                                        ((MainActivity)getActivity()).busId = socket_in.readLine();
+                                        if (((MainActivity)getActivity()).busId != null){
+                                            ((MainActivity)getActivity()).busId = socket_in.readLine();
+                                        }
+
                                     }
                                 } catch (Exception e){
 

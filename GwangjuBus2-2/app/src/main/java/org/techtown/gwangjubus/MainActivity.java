@@ -27,6 +27,7 @@ import org.w3c.dom.Text;
 public class MainActivity extends AppCompatActivity {
 
     public static String busId;
+    public static String lineName;
     public static String lineId;
     public static String busstopName;
     public static String busstopId;

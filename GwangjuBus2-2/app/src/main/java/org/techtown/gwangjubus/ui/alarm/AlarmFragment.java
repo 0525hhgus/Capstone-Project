@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -40,7 +41,14 @@ import org.techtown.gwangjubus.StationAdapter;
 import org.techtown.gwangjubus.StationList;
 import org.techtown.gwangjubus.ui.home.HomeViewModel;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.Socket;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
@@ -58,12 +66,20 @@ public class AlarmFragment extends Fragment  {
     BusArriveImf bus = null;
     BusArriveAdapter adapter;
     String search_id; // 찾고자 하는 버스 id
+    TextView hachaBusname;
+    TextView busCurrentStation;
+    TextView hachaBusstop;
 
     ArrayList<StationList> list = null;
     String station = null;
 
     String hacha_busid_text; //add
     String hacha_station_text; //add
+    EditText hacha_station;
+
+    private Socket socket;
+    BufferedReader socket_in;
+    PrintWriter socket_out;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,20 +95,23 @@ public class AlarmFragment extends Fragment  {
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_alarm, container, false); //add
 
-        hacha_search_recyclerview = (RecyclerView) rootView.findViewById(R.id.hacha_search_recyclerview); // fragment_alarm의 recycler view
-        hacha_search_recyclerview.setHasFixedSize(true);
 
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        hacha_search_recyclerview.setLayoutManager(layoutManager);
+
+        hachaBusname = (TextView) rootView.findViewById(R.id.hacha_busName);
+        hachaBusname.setText(((MainActivity)getActivity()).lineName);
+        busCurrentStation = (TextView) rootView.findViewById(R.id.bus_current_station);
+        busCurrentStation.setText(((MainActivity)getActivity()).busstopName);
+        hachaBusstop = (TextView)  rootView.findViewById(R.id.hacha_busstop);
 
         // add
         Button hacha_reservation_cancel_button = rootView.findViewById(R.id.hacha_reservation_cancel_button);
         Button hacha_reservation_button = rootView.findViewById(R.id.hacha_reservation_button);
-        EditText hacha_station = rootView.findViewById((R.id.hacha_station));
-        hacha_station_text = hacha_station.getText().toString(); //내릴 정류장 텍스트 가져오기
+        hacha_station = (EditText) rootView.findViewById((R.id.hacha_station));
+
 
         // end
 
@@ -118,102 +137,6 @@ public class AlarmFragment extends Fragment  {
         return rootView;
     }
 
-    private void StationSearchTask(){
-
-        RequestQueue requestQueue = Volley.newRequestQueue(context);
-
-
-
-        /*
-        String StationId = null; // 정류소 ID
-
-        try {
-            StationId = URLEncoder.encode(search,"UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        */
-
-        // 버스 도착정보 목록 조회
-        String url = "\thttp://api.gwangju.go.kr/xml/stationInfo?serviceKey="+key+"";
-        Log.d(TAG, "URL:"+url);
-
-        StringRequest request= new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        XMLtoJSONData(response);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                });
-
-        requestQueue.add(request);
-    }
-
-    private void XMLtoJSONData(String xml){
-
-
-        list = new ArrayList<StationList>();
-
-        // https://androidfreetutorial.wordpress.com/2016/11/28/how-to-convert-xml-to-json-for-android/
-        XmlToJson xmlToJson = new XmlToJson.Builder(xml).build();
-        // convert to a JSONObject
-        JSONObject jsonObject = xmlToJson.toJson();
-        Log.d(TAG, "jsonObject:"+jsonObject);
-
-        // JSON 에서 배열은 [] 대괄호 사용, Objext 는 {} 중괄호 사용
-        try {
-            JSONObject response = jsonObject.getJSONObject("ns2:STATION_INFO");
-            JSONObject result = response.getJSONObject("RESULT");
-
-
-
-            String resultCode = result.optString("RESULT_CODE");
-            Log.d(TAG, "String resultCode :"+resultCode);
-
-            if(resultCode.equals("SUCCESS")){
-
-                JSONObject arrive_list = response.getJSONObject("STATION_LIST");
-                JSONArray array = arrive_list.getJSONArray("STATION");
-
-                for(int i=0; i < array.length(); i++){
-                    JSONObject obj = array.getJSONObject(i);
-                    // optString which returns the value mapped by name if it exists
-                    String staionId =obj.optString("BUSSTOP_ID"); // 첫번째 차량 번호
-                    String stationName = obj.optString("BUSSTOP_NAME"); // 버스 이름
-                    Log.d(TAG, "jString busId :"+staionId);
-                    Log.d(TAG, "jString busName :"+stationName);
-                    station = new StationList(staionId, stationName);
-
-                    if(search.equals(stationName)){
-                        list.add(station);
-                    }
-
-
-                }
-
-
-            } else if(resultCode.equals("ERROR")){
-                Toast.makeText(context, "시스템 에러가 발생하였습니다", Toast.LENGTH_SHORT).show();
-            } else if(resultCode.equals("1")){
-                Toast.makeText(context, "결과가 존재하지 않습니다", Toast.LENGTH_SHORT).show();
-            } else if(resultCode.equals("8")){
-                Toast.makeText(context, "요청 제한을 초과하였습니다", Toast.LENGTH_SHORT).show();
-            } else if(resultCode.equals("23")){
-                Toast.makeText(context, "버스 도착 정보가 존재하지 않습니다", Toast.LENGTH_SHORT).show();
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
-
 
     public void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -237,9 +160,45 @@ public class AlarmFragment extends Fragment  {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getActivity().getApplicationContext(),"하차가 예약 되었습니다..",Toast.LENGTH_LONG).show();
+                        hacha_station_text = hacha_station.getText().toString(); //내릴 정류장 텍스트 가져오기
+                        hachaBusstop.setText(hacha_station_text);
+
+                        String busid = ((MainActivity)getActivity()).busId;
+
+                        Thread worker = new Thread(){
+                            public void run(){
+                                try {
+                                    socket = new Socket("168.131.151.207", 8911);
+                                    socket_out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
+                                    socket_in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+                                    if (busid != null && hacha_station_text != null){
+                                        socket_out.println(busid);
+                                        socket_out.println(hacha_station_text);
+                                    }
+
+                                } catch (IOException e){
+                                    e.printStackTrace();
+                                }
+                                try {
+
+                                    while(true) {
+                                        ((MainActivity)getActivity()).busId = socket_in.readLine();
+                                        hacha_station_text = socket_in.readLine();
+                                    }
+
+                                } catch (Exception e){
+
+                                }
+
+
+                            }
+                        };
+
+                        worker.start();
 
                     }
                 });
+
         builder.show();
     }
 
@@ -258,6 +217,7 @@ public class AlarmFragment extends Fragment  {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getActivity().getApplicationContext(),"하차가 취소 되었습니다..",Toast.LENGTH_LONG).show();
+                        hachaBusstop.setText(null);
                     }
                 });
         builder.show();
