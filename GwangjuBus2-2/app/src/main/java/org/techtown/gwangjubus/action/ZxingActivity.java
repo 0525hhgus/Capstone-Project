@@ -1,4 +1,4 @@
-package org.techtown.gwangjubus.ui;
+package org.techtown.gwangjubus.action;
 
 import com.journeyapps.barcodescanner.CaptureActivity;
 
@@ -14,11 +14,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.techtown.gwangjubus.R;
 
+// QR 코드 스캔 화면 인터페이스
+
 public class ZxingActivity extends CaptureActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -28,7 +29,7 @@ public class ZxingActivity extends CaptureActivity {
         title_view.setPadding(150, 100, 100, 100);
         title_view.setTextColor(Color.parseColor("#FFFFFF"));
         title_view.setTextSize(30);
-        title_view.setText("QR 코드 입력화면");
+        title_view.setText("QR 코드 스캔");
 
         this.addContentView(title_view, layoutParams);
 

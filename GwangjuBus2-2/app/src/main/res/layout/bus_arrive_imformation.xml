@@ -25,11 +25,13 @@
             android:layout_height="wrap_content">
             <TextView
                 android:text="버스 이름"
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/busName"
-                android:textSize="32dp"
+                android:textColor="@color/black"
+                android:textSize="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -43,10 +45,12 @@
         android:layout_height="wrap_content">
         <TextView
             android:text="버스 현재 정류장 : "
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/busstopName"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -57,10 +61,12 @@
         android:layout_height="wrap_content">
         <TextView
             android:text="도착 예상 시간 : "
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/busArriveTime"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -71,21 +77,23 @@
         android:layout_height="wrap_content">
         <TextView
             android:text="버스 아이디 : "
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/busId"
+            android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
     <!--구분선-->
     <View
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="16dp"
+        android:layout_height="2dp"
         android:layout_centerInParent="true"
-        android:background="#e3e3e3"/>
+        android:background="@color/Indigo"/>
 
 
 </LinearLayout>

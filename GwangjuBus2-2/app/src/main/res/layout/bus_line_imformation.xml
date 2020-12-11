@@ -28,11 +28,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
+        android:textColor="@color/black"
         android:id="@+id/busstopshow"
         android:gravity="center"
         android:text="hello!">
 
     </TextView>
+
 
 
 </LinearLayout>

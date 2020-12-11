@@ -1,27 +1,20 @@
-package org.techtown.gwangjubus;
+package org.techtown.gwangjubus.action;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.lakue.lakuepopupactivity.PopupActivity;
-import com.lakue.lakuepopupactivity.PopupGravity;
-import com.lakue.lakuepopupactivity.PopupType;
-
-import org.techtown.gwangjubus.BusArriveImf;
+import org.techtown.gwangjubus.data.BusArriveImf;
 import org.techtown.gwangjubus.R;
-import org.techtown.gwangjubus.ui.home.HomeFragment;
 
 import java.util.ArrayList;
+
+// 리사이클뷰의 버스 도착 정보 연동
 
 public class BusArriveAdapter extends RecyclerView.Adapter<BusArriveAdapter.MyViewHolder>
         implements OnBusArriveClickListener {

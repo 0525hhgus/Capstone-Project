@@ -1,4 +1,4 @@
-package org.techtown.gwangjubus;
+package org.techtown.gwangjubus.action;
 
 import android.view.View;
 

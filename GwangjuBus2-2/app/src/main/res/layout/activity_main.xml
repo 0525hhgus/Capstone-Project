@@ -45,21 +45,22 @@
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
-
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/homeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/photocamera"
+        android:src="@drawable/photocamera"
+        android:visibility="visible"
+        app:backgroundTint="@color/Indigo"
+        app:backgroundTintMode="add"
         app:elevation="8dp"
         app:fabAlignmentMode="center"
         app:layout_constraintBottom_toBottomOf="@+id/nav_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/nav_host_fragment"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,9 +17,7 @@
         android:theme="@style/Theme.GwangjuBus"
         android:usesCleartextTraffic="true">
         <activity android:name=".action.PopupFragment"></activity>
-        <activity android:name=".ui.ZxingActivity" />
-        <activity android:name=".action.CustomScannerActivity" />
-        <activity android:name=".action.AnyOrientationCaptureActivity" />
+        <activity android:name=".action.ZxingActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">

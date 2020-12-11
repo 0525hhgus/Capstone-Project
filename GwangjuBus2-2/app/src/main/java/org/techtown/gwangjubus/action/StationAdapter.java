@@ -1,4 +1,4 @@
-package org.techtown.gwangjubus;
+package org.techtown.gwangjubus.action;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.techtown.gwangjubus.R;
+import org.techtown.gwangjubus.data.StationList;
+
 import java.util.ArrayList;
+
+// 리사이클뷰의 정류장 정보 연동
 
 public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationViewHolder>
         implements OnStationClickListener{
@@ -36,11 +41,8 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
 
     @Override
     public void onBindViewHolder(@NonNull StationViewHolder holder, int position) {
-        //binding
-        // holder.busId.setText(mList.get(position).getBusstopId());
         holder.busstopName.setText(mList.get(position).getBusstopName());
-
-        //Click event
+        holder.updown.setText(mList.get(position).getUpdown());
     }
 
 
@@ -64,11 +66,13 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
     public static class StationViewHolder extends RecyclerView.ViewHolder {
 
         public TextView busstopName;
+        public TextView updown;
 
         public StationViewHolder(View itemView, final OnStationClickListener listener) {
             super(itemView);
 
             busstopName = itemView.findViewById(R.id.busstopsearchname);
+            updown = itemView.findViewById(R.id.busupdown);
 
             // recylerview 클릭 시
             itemView.setOnClickListener(new View.OnClickListener() {

@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,65 +17,34 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.zxing.integration.android.IntentResult;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.techtown.gwangjubus.BusArriveAdapter;
-import org.techtown.gwangjubus.BusArriveImf;
 import org.techtown.gwangjubus.MainActivity;
-import org.techtown.gwangjubus.OnBusArriveClickListener;
-import org.techtown.gwangjubus.OnStationClickListener;
 import org.techtown.gwangjubus.R;
-import org.techtown.gwangjubus.StationAdapter;
-import org.techtown.gwangjubus.StationList;
-import org.techtown.gwangjubus.ui.home.HomeViewModel;
+import org.techtown.gwangjubus.data.NetworkVariable;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.Socket;
-import java.net.URLEncoder;
-import java.util.ArrayList;
 
-import fr.arnaudguyon.xmltojsonlib.XmlToJson;
+/*
+AlarmFragment : 현재 승차 요청 or 탑승한 버스의 하차 요청
+ */
 
 public class AlarmFragment extends Fragment  {
 
     Context context;
-    public static final String TAG = MainActivity.class.getSimpleName();
-    String key = "bSeWawCaoDQIh9pHcqEVx3Q1BiCDyxhCdoJ4CiXqip2TY3zLfTxJSyjZTyZ%2BIFXmwPbFnkiokLjqo0EI0NDRyw%3D%3D";
-    String busstopData;
-    private HomeViewModel homeViewModel;
-    IntentResult result;
-    RecyclerView hacha_search_recyclerview;
-    BusArriveImf bus = null;
-    BusArriveAdapter adapter;
-    String search_id; // 찾고자 하는 버스 id
+    String search_id;
     TextView hachaBusname;
     TextView busCurrentStation;
     TextView hachaBusstop;
 
-    ArrayList<StationList> list = null;
-    String station = null;
+    String hacha_station_text; // 하차할 정류장
+    EditText hacha_station; // 하차할 정류장 입력 받는 변수
 
-    String hacha_busid_text; //add
-    String hacha_station_text; //add
-    EditText hacha_station;
-
+    // 소켓 통신 변수
     private Socket socket;
     BufferedReader socket_in;
     PrintWriter socket_out;
@@ -91,46 +59,35 @@ public class AlarmFragment extends Fragment  {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-
-
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_alarm, container, false); //add
-
-
-
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
+        // 하차 정보 설정
         hachaBusname = (TextView) rootView.findViewById(R.id.hacha_busName);
         hachaBusname.setText(((MainActivity)getActivity()).lineName);
         busCurrentStation = (TextView) rootView.findViewById(R.id.bus_current_station);
         busCurrentStation.setText(((MainActivity)getActivity()).busstopName);
         hachaBusstop = (TextView)  rootView.findViewById(R.id.hacha_busstop);
 
-        // add
         Button hacha_reservation_cancel_button = rootView.findViewById(R.id.hacha_reservation_cancel_button);
         Button hacha_reservation_button = rootView.findViewById(R.id.hacha_reservation_button);
         hacha_station = (EditText) rootView.findViewById((R.id.hacha_station));
 
-
-        // end
-
         search_id = ((MainActivity)getActivity()).busId;
 
+        // 하차 취소 버튼 클릭시
         hacha_reservation_cancel_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
-
-                show2(); //하차 취소 여부 묻는 창
-
-                //  StationSearchTask();
-                //취소 되면 예약창 사라지게 하기
+                showCancle();
             }
         });
 
+        // 하차 요청 버튼 클릭시
         hacha_reservation_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
-                show(); //하차 예약 여부 묻는 창
-                // 하차예약되면 밑에 창 보이기
+                show();
             }
         });
 
@@ -145,6 +102,7 @@ public class AlarmFragment extends Fragment  {
         fragmentTransaction.commit();
     }
 
+    // 하차 요청 함수
     void show()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -168,29 +126,23 @@ public class AlarmFragment extends Fragment  {
                         Thread worker = new Thread(){
                             public void run(){
                                 try {
-                                    socket = new Socket("168.131.151.207", 8911);
+                                    socket = new Socket("168.131.151.207", NetworkVariable.takeOff);
                                     socket_out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
                                     socket_in = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
                                     if (busid != null && hacha_station_text != null){
                                         socket_out.println(busid);
                                         socket_out.println(hacha_station_text);
                                     }
-
                                 } catch (IOException e){
                                     e.printStackTrace();
                                 }
                                 try {
-
                                     while(true) {
                                         ((MainActivity)getActivity()).busId = socket_in.readLine();
                                         hacha_station_text = socket_in.readLine();
                                     }
-
                                 } catch (Exception e){
-
                                 }
-
-
                             }
                         };
 
@@ -202,11 +154,12 @@ public class AlarmFragment extends Fragment  {
         builder.show();
     }
 
-    void show2()
+    // 하차 요청 취소 함수
+    void showCancle()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("하차 취소");
-        builder.setMessage("하차를 취소 하시겠습니까?");
+        builder.setMessage("하차 취소 하시겠습니까?");
         builder.setPositiveButton("아니요",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

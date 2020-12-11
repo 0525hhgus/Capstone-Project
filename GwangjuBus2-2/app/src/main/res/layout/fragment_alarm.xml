@@ -25,9 +25,11 @@
 
             <TextView
                 android:id="@+id/textView2"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="도착 예정 시간"
+                android:text="하차 요청 / 취소"
+                android:textColor="@color/black"
                 android:textSize="30dp"
                 android:gravity="center_horizontal"/>
 
@@ -37,10 +39,10 @@
                 android:layout_height="50dp"
                 android:background="@null"
                 android:ems="10"
+                android:textColor="@color/black"
                 android:hint="내리실 정류장을 입력해주세요."
                 android:inputType="textPersonName"
                 android:text=""
-                android:textColor="#0C0C0C"
                 android:textColorHint="#D5D5D5" />
 
 
@@ -59,7 +61,8 @@
                     android:layout_marginRight="20dp"
                     android:layout_weight="1"
                     android:text="하차 검색"
-                    app:backgroundTint="#ED9393" />
+                    android:textColor="@color/white"
+                    app:backgroundTint="@color/Indigo" />
 
                 <Button
                     android:id="@+id/hacha_reservation_cancel_button"
@@ -69,7 +72,8 @@
                     android:layout_marginRight="30dp"
                     android:layout_weight="1"
                     android:text="하차 취소 "
-                    app:backgroundTint="#ED9393" />
+                    android:textColor="@color/white"
+                    app:backgroundTint="@color/Indigo" />
 
             </LinearLayout>
 
@@ -81,7 +85,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="10dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_centerInParent="true"
+                android:background="@color/Indigo" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -92,7 +102,8 @@
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="20dp"
-                    android:src="@drawable/ic_notifications_black_24dp"/>
+                    android:background="@color/zxing_transparent"
+                    android:src="@drawable/bell" />
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -100,11 +111,13 @@
                     android:layout_height="wrap_content">
                     <TextView
                         android:text="버스 이름"
+                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
                         android:id="@+id/hacha_busName"
-                        android:textSize="32dp"
+                        android:textColor="@color/black"
+                        android:textSize="30dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -112,16 +125,24 @@
             </LinearLayout>
 
 
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_centerInParent="true"
+                android:background="@color/Indigo" />
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
                     android:text="현재 정류장 : "
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/bus_current_station"
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -133,20 +154,22 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:text="하차 정류장 : "
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/hacha_busstop"
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="2dp"
                 android:layout_centerInParent="true"
                 android:layout_marginBottom="16dp"
-                android:background="#e3e3e3" />
+                android:background="@color/Indigo" />
 
 
         </LinearLayout>

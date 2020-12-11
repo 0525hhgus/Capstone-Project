@@ -1,4 +1,6 @@
-package org.techtown.gwangjubus;
+package org.techtown.gwangjubus.data;
+
+// 버스 도착 정보 저장하는 객체
 
 public class BusArriveImf {
 

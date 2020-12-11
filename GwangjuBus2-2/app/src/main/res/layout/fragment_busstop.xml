@@ -26,13 +26,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="@color/black"
                 android:text="정류장 검색">
 
             </TextView>
 
             <EditText
                 android:id="@+id/searchbusstoptext"
-                android:layout_width="250dp"
+                android:layout_width="280dp"
                 android:inputType="textPersonName"
                 android:layout_height="wrap_content">
 
@@ -42,7 +43,12 @@
                 android:id="@+id/searchbusstopbutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="검색">
+                android:layout_margin="3dp"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/Indigo"
+                app:backgroundTintMode="src_over"
+                app:icon="@android:drawable/ic_menu_search"
+                app:iconTint="@color/Yellow">
 
             </Button>
 
