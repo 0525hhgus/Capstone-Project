@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.lakue119:LakuePopupActivity:1.0.1@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1f39d46c23c39e87cae4a4771bfeb7f7/jetified-LakuePopupActivity-1.0.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1f39d46c23c39e87cae4a4771bfeb7f7/jetified-LakuePopupActivity-1.0.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1f39d46c23c39e87cae4a4771bfeb7f7/jetified-LakuePopupActivity-1.0.1/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.lakue119/LakuePopupActivity/1.0.1/6216f2f37a0c1d478cbfdfa79735415016bde2c5/LakuePopupActivity-1.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
